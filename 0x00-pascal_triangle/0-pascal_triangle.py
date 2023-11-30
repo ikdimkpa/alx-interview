@@ -9,10 +9,9 @@ def pascal_triangle(n):
         representing the Pascal’s triangle of n
 
     """
-    
+
     if n <= 0:
         return []
-
 
     triangle = []
 
@@ -22,8 +21,7 @@ def pascal_triangle(n):
             if row == 0 or col == row:
                 new_row.append(1)
             else:
-                new_row.append(triangle[col - 1][row] + triangle[col - 1][row - 1])
+                new_row.append(triangle[col - 1][row] +
+                               triangle[col - 1][row - 1])
         triangle.append(new_row)
     return triangle
-
-result = pascal_triangle(5)
