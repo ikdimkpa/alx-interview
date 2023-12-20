@@ -3,42 +3,42 @@
 import sys
 
 
-possible_status_codes = [100, 301, 400, 401, 403, 404, 405,500]
-total_file_size = 0
-number_of_lines = 0
-map_status_codes = {}
+if __name__ == '__main__':
+    file_size = [0]
+    status_codes = {200: 0, 301: 0, 400: 0, 401: 0,
+            403: 0, 404: 0, 405: 0, 500: 0}
 
-def print_stats():
-    """Prints the current status"""
-    print("{}: {}".format(file_size, total_file_size))
+    def print_stats():
+        """Print log"""
+        print('File size: {}'.format(file_size[0]))
+        for key in sorted(status_codes.keys()):
+            if status_codes[key]:
+                print('{}: {}'.format(key, status_codes[key]))
 
-    for status, count in sorted(map_status_codes.items()):
-        print("{}: {}".format(status, count))
-
-try:
-    for line in sys.stdin:
+    def parse_line(line):
+        """Checks for matches"""
         try:
-            line = line.split()
-            file_size = line[-1]
-            total_file_size += int(file_size)
-            status_code = line[-1]
-
-            if status_code in possible_status_codes:
-                if status_code in map_status_codes:
-                    map_status_codes[status_code] += 1
-                else:
-                    map_status_code[status_code] = 1
-
-            number_of_lines += 1
-
-            if number_of_lines % 10 == 0:
-                print("File size: {}".format(total_file_size))
-
+            line = line[:-1]
+            word = line.split(' ')
+            # File size is last parameter on stdout
+            file_size[0] += int(word[-1])
+            # Status code comes before file size
+            status_code = int(word[-2])
+            # Move through dictionary of status codes
+            if status_code in status_codes:
+                status_codes[status_code] += 1
         except ValueError:
             pass
 
-        if (number_of_lines == 0) or (number_of_lines % 10 != 0):
-            print_stats()
+    line_num = 1
+    try:
+        for line in sys.stdin:
+            parse_line(line)
+            if line_num % 10 == 0:
+                print_stats()
+            line_num += 1
+    except KeyboardInterrupt:
+        print_stats()
+        raise
+    print_stats()
 
-except KeyboardInterrupt:
-    print("File size: {}".format(total_file_size))
