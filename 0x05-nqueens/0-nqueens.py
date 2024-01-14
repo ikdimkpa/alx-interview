@@ -3,9 +3,14 @@
 import sys
 
 
-try:
+"""try:
     N = int(sys.argv[1])
 except ValueError:
+    print('N must be a number')
+    sys.exit(1)"""
+N = int(sys.argv[1])
+
+if not isinstance(N, int):
     print('N must be a number')
     sys.exit(1)
 
