@@ -8,7 +8,7 @@ try:
 except ValueError:
     print('N must be a number')
     sys.exit(1)
-#N = int(sys.argv[1])
+# N = int(sys.argv[1])
 
 """if not isinstance(N, int):
     print('N must be a number')
@@ -60,5 +60,6 @@ def solve_n_queens(r):
             positive_diag.remove(r + c)
             negative_diag.remove(r - c)
             board[r] = [0, 0]
+
 
 solve_n_queens(0)
