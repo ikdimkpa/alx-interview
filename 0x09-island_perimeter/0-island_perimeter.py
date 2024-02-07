@@ -15,19 +15,19 @@ def island_perimeter(grid):
         for x in range(len(y)):
             if y[x] == 1:
                 # check for water on the west
-                if y[x - 1] == 0:
+                if y[x - 1] == 0 or not y[x - 1]:
                     perimeter += 1
 
                 # check for water on the east
-                if y[x + 1] == 0:
+                if y[x + 1] == 0 or not y[x + 1]:
                     perimeter += 1
 
                 # check for water on the north
-                if y[index - 1] == 0:
+                if y[index - 1] == 0 or not y[index - 1]:
                     perimeter += 1
 
                 # check for water on the south
-                if y[index + 1] == 0:
+                if y[index + 1] == 0 or not y[index + 1]:
                     perimeter += 1
 
     return perimeter
